@@ -13,6 +13,7 @@ import BoardUser from "./components/BoardUser";
 import BoardAdmin from "./components/BoardAdmin";
 import ListUsers from "./components/ListUsers";
 import EditUser from "./components/EditUser";
+import ListPerformanceReviews from "./components/ListPerformanceReviews";
 import RelationUserPage from "./components/RelationUserPage";
 
 export default function App() {
@@ -56,7 +57,7 @@ export default function App() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={"/employee/list-users"} className="nav-link">
+                <Link to={"/employee/list-performance"} className="nav-link">
                   List Performance
                 </Link>
               </li>
@@ -107,6 +108,7 @@ export default function App() {
             <Route path="/admin" component={BoardAdmin} />
             <Route path="/employee/list-users" component={ListUsers} />
             <Route path="/employee/update/:id" component={EditUser} />
+            <Route path="/employee/list-performance" component={ListPerformanceReviews} />
             <Route path="/employee/create/relation" component={RelationUserPage} />
           </Switch>
         </div>

@@ -39,16 +39,16 @@ db.user.belongsToMany(db.role, {
   otherKey: "roleId"
 });
 
-db.user.belongsToMany(db.user, {
-  through: "performance_reviews",
-  as: "id_reviewer_recipient",
-  foreignKey: "id",
-})
-db.user.belongsToMany(db.user, {
-  through: "performance_reviews",
-  as: "id_reviewer",
-  foreignKey: "id",
-})
+// db.user.belongsToMany(db.user, {
+//   through: "perfomance_reviews",
+//   as: "id_reviewer_recipient",
+//   foreignKey: "id",
+// })
+// db.user.belongsToMany(db.user, {
+//   through: "perfomance_reviews",
+//   as: "id_reviewer",
+//   foreignKey: "id",
+// })
 
 db.ROLES = ["user", "admin"];
 

@@ -8,6 +8,8 @@ const API_URL = "http://localhost:5000/api/";
 
 export default function RelationUserPage() {
     const [employee, setEmployee] = useState([]);
+    const [reviewer, setReviewer] = useState(employee);
+    const [reviewerRecipient, setReviewerRecipient] = useState(employee);
 
     useEffect(() => {
         getEmployee();
@@ -21,8 +23,8 @@ export default function RelationUserPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post(API_URL+"performance/create",{
-            reviewer: employee.name,
-            reviewer_recipient: employee.name,
+            reviewer: reviewer,
+            reviewer_recipient: reviewerRecipient,
             id_reviewer: employee.id,
             id_reviewer_recipient: employee.id
         }, {headers: authHeader()})
@@ -33,6 +35,31 @@ export default function RelationUserPage() {
             console.log(err)
         });
     }
+    console.log(reviewer, 'reviewr');
+    console.log(reviewerRecipient, 'rr')
+
+    // const onChangeReviewer = useState(() => {
+    //     return () => {
+    //         setReviewer(reviewer);
+    //     }
+        
+    // });
+
+    //   const onChangeReviewerRecipient = useState(() => {
+    //     return () => {
+    //         setReviewerRecipient(reviewerRecipient);
+    //     }
+    //   });
+    const onChangeReviewer = (e) => {
+        const reviewer = e.target.value;
+        setReviewer(reviewer);
+      };
+
+      const onChangeReviewerRecipient = (e) => {
+        const reviewerRecipient = e.target.value;
+        setReviewerRecipient(reviewerRecipient);
+      };
+
     return(
         <>
             <h3>Create Relation User for Review</h3>
@@ -41,18 +68,18 @@ export default function RelationUserPage() {
                     <div>
                         <h5>Select user for reviewer</h5>         
                         <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
+                            <option selected value={reviewer} onChange={onChangeReviewer}>Open this select menu</option>
                             {employee.map((employee, id) => (
-                                <option value={id}>{employee.name}</option>
+                                <option key={id}>{employee.name}</option>
                             ))}
                         </select>
                     </div>
                     <div>
                         <h5>Select user to receipt a review</h5>
                         <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
+                            <option selected value={reviewerRecipient} onChange={onChangeReviewerRecipient}>Open this select menu</option>
                             {employee.map((employee, id) => (
-                                <option value={id}>{employee.name}</option>
+                                <option key={id}>{employee.name}</option>
                             ))}
                         </select>
                     </div>

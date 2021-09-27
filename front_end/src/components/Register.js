@@ -115,6 +115,7 @@ const Register = (props) => {
           setSuccessful(false);
         }
       );
+    //   history.push("/employee/list-users");
     }
   };
 

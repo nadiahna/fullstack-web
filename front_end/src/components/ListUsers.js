@@ -43,7 +43,7 @@ export default function ListUsers() {
             <tbody>
                 {employee.map((data, id) => (
                     <tr key={id}>
-                    <td>{data.id}</td>
+                    <td>{id+1}</td>
                     <td>{data.name}</td>
                     <td>{data.username}</td>
                     <td>{data.email}</td>
