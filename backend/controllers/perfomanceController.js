@@ -12,11 +12,11 @@ exports.create = (req, res) => {
 
     //create perfomance relation
     const performance = {
+        id_reviewer: req.body.id_reviewer,
+        id_reviewer_recipient: req.body.id_reviewer_recipient,
         reviewer: req.body.reviewer,
         reviewer_recipient: req.body.reviewer_recipient,
         score: req.body.score,
-        id_reviewer: req.body.id_reviewer,
-        id_reviewer_recipient: req.body.id_reviewer_recipient
     };
 
     //save performance to database

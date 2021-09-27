@@ -1,5 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
-    const Perfomance = sequelize.define("perfomance_reviews", {
+    const Perfomance = sequelize.define("performance_reviews", {
+        id_reviewer:{
+            type: Sequelize.INTEGER
+        },
+        id_reviewer_recipient:{
+            type: Sequelize.INTEGER
+        },
         reviewer:{
             type: Sequelize.STRING
         },
@@ -9,12 +15,6 @@ module.exports = (sequelize, Sequelize) => {
         score:{
             type: Sequelize.STRING
         },
-        id_reviewer:{
-            type: Sequelize.INTEGER
-        },
-        id_reviewer_recipient:{
-            type: Sequelize.INTEGER
-        }
     });
   
     return Perfomance;

@@ -11,8 +11,11 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import BoardUser from "./components/BoardUser";
 import BoardAdmin from "./components/BoardAdmin";
+import ListUsers from "./components/ListUsers";
+import EditUser from "./components/EditUser";
+import RelationUserPage from "./components/RelationUserPage";
 
-function App() {
+export default function App() {
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
 
@@ -41,11 +44,23 @@ function App() {
             </li>
 
             {showAdminBoard && (
+              <>
               <li className="nav-item">
                 <Link to={"/admin"} className="nav-link">
                   Admin Board
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to={"/employee/list-users"} className="nav-link">
+                  List Users
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/employee/list-users"} className="nav-link">
+                  List Performance
+                </Link>
+              </li>
+              </>
             )}
 
             {currentUser && (
@@ -78,11 +93,6 @@ function App() {
                 </Link>
               </li>
 
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
             </div>
           )}
         </nav>
@@ -95,11 +105,12 @@ function App() {
             <Route exact path="/profile" component={Profile} />
             <Route path="/user" component={BoardUser} />
             <Route path="/admin" component={BoardAdmin} />
+            <Route path="/employee/list-users" component={ListUsers} />
+            <Route path="/employee/update/:id" component={EditUser} />
+            <Route path="/employee/create/relation" component={RelationUserPage} />
           </Switch>
         </div>
       </div>
     </Router>
   );
 };
-
-export default App;

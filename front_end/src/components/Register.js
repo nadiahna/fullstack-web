@@ -5,6 +5,7 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
 import AuthService from "../services/authService";
+import { useHistory } from "react-router";
 
 const required = (value) => {
   if (!value) {
@@ -59,6 +60,7 @@ const vpassword = (value) => {
 const Register = (props) => {
   const form = useRef();
   const checkBtn = useRef();
+  const history = useHistory();
 
   const [name, setName] = useState("")
   const [username, setUsername] = useState("");
@@ -118,13 +120,8 @@ const Register = (props) => {
 
   return (
     <div className="col-md-12">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-
+    <h3>Create new account for employee</h3>
+      <div className="card-container">
         <Form onSubmit={handleRegister} ref={form}>
           {!successful && (
             <div>
@@ -176,6 +173,7 @@ const Register = (props) => {
               </div>
 
               <div className="form-group">
+                <button className="btn btn-warning btn-block" onClick={() => history.goBack()}>Back</button>
                 <button className="btn btn-primary btn-block">Add Employee</button>
               </div>
             </div>
