@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
@@ -14,14 +15,15 @@ export default function EditPerformance() {
     const [employee, setEmployee] = useState([]);
     const [score, setScore] = useState('');
     const [reviewerRecipient, setReviewerRecipient] = useState();
-    const [reviewer, setReviewer] = useState(employee);
+    const [reviewer, setReviewer] = useState();
     const [isAdmin, setIsAdmin] = useState(false);
-    const currentUser = AuthService.getCurrentUser();
+    const [currentUser, setCurrentUser] = useState(undefined);
     
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
+        setCurrentUser(user);
       setIsAdmin(user.roles.includes("ROLE_ADMIN"));
     }
   }, []);

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
@@ -11,16 +12,17 @@ const API_URL = "http://localhost:5000/api/performance";
 export default function ListPerformanceReviews() {
     const [performance, setPerformance] = useState([]);
     const [isAdmin, setIsAdmin] = useState(false);
-    const currentUser = AuthService.getCurrentUser();
+    const [currentUser, setCurrentUser] = useState('');
     
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
-      setIsAdmin(user.roles.includes("ROLE_ADMIN"));
+        setCurrentUser(user);
+        setIsAdmin(user.roles.includes("ROLE_ADMIN"));
     }
   }, []);
-//   console.log(isAdmin, 'user');
+  console.log(currentUser, 'user');
 
     useEffect(() => {
         getPerformance();
@@ -32,11 +34,6 @@ export default function ListPerformanceReviews() {
     };
 
     console.log(performance, 'perf');
-
-    // const getPerformanceById = async () => {
-    //     const response = await axios.get(API_URL+ user.id, { headers: authHeader()});
-    //     setPerformance(response.data);
-    // };
 
     const deletePerformance = async (id) => {
         await axios.delete(API_URL+"delete/" + id, { headers: authHeader()});

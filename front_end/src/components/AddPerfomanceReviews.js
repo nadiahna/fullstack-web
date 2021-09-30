@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import authHeader from "../services/auth-header";
+import AuthService from "../services/authService";
 
 const API_URL = "http://localhost:5000/api/";
 
@@ -11,7 +12,10 @@ export default function AddPerfomanceReviews() {
     const history = useHistory();
     const [employee, setEmployee] = useState([]);
     const [score, setScore] = useState('');
+    const [reviewer, setReviewer] = useState();
     const [reviewerRecipient, setReviewerRecipient] = useState();
+    const [currentUser, setCurrentUser] = useState(undefined);
+    const user = AuthService.getCurrentUser();
 
     useEffect(() => {
         getEmployee();
@@ -32,8 +36,20 @@ export default function AddPerfomanceReviews() {
         setReviewerRecipient(reviewerRecipient);
       };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
+        await axios.post(API_URL+"performance/create", {
+            id_reviewer: user.id,
+            id_reviewer_recipient: reviewerRecipient,
+            score: score,
+          }, {headers: authHeader()})
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+          history.push("/employee/list-performance");
 
     }
 
