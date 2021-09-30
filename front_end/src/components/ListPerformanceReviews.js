@@ -11,6 +11,7 @@ const API_URL = "http://localhost:5000/api/performance";
 
 export default function ListPerformanceReviews() {
     const [performance, setPerformance] = useState([]);
+    const [performanceById, setPerformanceById] = useState([]);
     const [isAdmin, setIsAdmin] = useState(false);
     const [currentUser, setCurrentUser] = useState('');
     
@@ -26,11 +27,17 @@ export default function ListPerformanceReviews() {
 
     useEffect(() => {
         getPerformance();
+        getPerformanceById();
     }, []);
  
     const getPerformance = async () => {
-        const response = await axios.get( isAdmin ? API_URL+"/all" : API_URL+"By/" + currentUser.id, { headers: authHeader()});
+        const response = await axios.get(API_URL+"/all", { headers: authHeader()});
         setPerformance(response.data);
+    };
+
+    const getPerformanceById = async () => {
+        const response = await axios.get(API_URL+"By/" + currentUser.id, { headers: authHeader()});
+        setPerformanceById(response.data);
     };
 
     console.log(performance, 'perf');
@@ -92,7 +99,7 @@ export default function ListPerformanceReviews() {
                     </tr>
                 </thead>
                 <tbody>
-                    {performance.map((data, id) => (
+                    {performanceById.map((data, id) => (
                         <tr key={id}>
                             <td>{id+1}</td>
                             <td>{data.reviewer_recipient}</td>
