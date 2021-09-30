@@ -1,5 +1,6 @@
 const db = require('../models');
 const Performance = db.performance;
+const User = db.user;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -47,9 +48,28 @@ exports.findAll = (req, res) => {
     });
 };
 
-    //find one with id
+//find all by id_reviewer
+exports.findAllByIdUser = (req, res) => {
+    const id_reviewer = req.params.id;
+
+    Performance.findAll({
+            where: {
+                id_reviewer : id_reviewer
+            }
+    })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error while get all performance reviewed by you."
+        });
+    });
+};
+
+    //find one by id
 exports.findOne = (req, res) => {
-    const id = req.params.id_reviewer;
+    const id = req.params.id;
 
     Performance.findByPk(id)
     .then(data => {

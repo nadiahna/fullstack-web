@@ -20,6 +20,9 @@ module.exports = function(app) {
     // get performance by id
     app.get("/api/performance/:id", [authJwt.verifyToken], performance.findOne);
 
+    // get performance by id_reviewer
+    app.get("/api/performanceBy/:id", performance.findAllByIdUser);
+
     //update performance by id
     app.post("/api/performance/update/:id", [authJwt.verifyToken], performance.update);
 

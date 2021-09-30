@@ -1,0 +1,76 @@
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import authHeader from "../services/auth-header";
+
+const API_URL = "http://localhost:5000/api/";
+
+export default function AddPerfomanceReviews() {
+    const history = useHistory();
+    const [employee, setEmployee] = useState([]);
+    const [score, setScore] = useState('');
+    const [reviewerRecipient, setReviewerRecipient] = useState();
+
+    useEffect(() => {
+        getEmployee();
+    }, []);
+ 
+    const getEmployee = async () => {
+        const response = await axios.get(API_URL+"employee/all", { headers: authHeader()});
+        setEmployee(response.data);
+    };
+
+    const onChangeScore = (e) => {
+        const score = e.target.value;
+        setScore(score);
+      };
+
+      const onChangeReviewerRecipient = (e) => {
+        const reviewerRecipient = e.target.value;
+        setReviewerRecipient(reviewerRecipient);
+      };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+    }
+
+    return(
+        <>
+            <div className="col-md-12">
+                <h3>Please add your feedback</h3>
+                <div className="card-container">
+                    <Form onSubmit={handleSubmit}>
+                        <div>
+                            <div>
+                                <h5>Select user to receipt a review</h5>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected value={reviewerRecipient} onChange={onChangeReviewerRecipient}>Open this select menu</option>
+                                    {employee.map((employee, id) => (
+                                        <option key={id}>{employee.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="score">Score</label>
+                                <Input
+                                type="text"
+                                className="form-control"
+                                name="score"
+                                value={score}
+                                onChange={onChangeScore}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <button className="btn btn-warning btn-block" onClick={() => history.goBack()}>Back</button>
+                                <button className="btn btn-primary btn-block">Add Feedback</button>
+                            </div>
+                        </div>
+                    </Form>
+                </div>
+            </div>
+        </>
+    )
+}

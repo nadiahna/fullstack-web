@@ -51,7 +51,7 @@ export default function RelationUserPage() {
     //     }
     //   });
     const onChangeReviewer = (e) => {
-        const reviewer = e.target.value;
+        const [reviewer] = e.target.value;
         setReviewer(reviewer);
       };
 

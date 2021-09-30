@@ -14,6 +14,8 @@ import BoardAdmin from "./components/BoardAdmin";
 import ListUsers from "./components/ListUsers";
 import EditUser from "./components/EditUser";
 import ListPerformanceReviews from "./components/ListPerformanceReviews";
+import AddPerfomanceReviews from "./components/AddPerfomanceReviews";
+import EditPerformance from "./components/EditPerformance";
 import RelationUserPage from "./components/RelationUserPage";
 
 export default function App() {
@@ -56,20 +58,27 @@ export default function App() {
                   List Users
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to={"/employee/list-performance"} className="nav-link">
                   List Performance
                 </Link>
-              </li>
+              </li> */}
               </>
             )}
 
             {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
+              <>
+                <li className="nav-item">
+                  <Link to={"/employee/list-performance"} className="nav-link">
+                    List Performance
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/user"} className="nav-link">
+                    User
+                  </Link>
+                </li>
+              </>
             )}
           </div>
 
@@ -109,6 +118,8 @@ export default function App() {
             <Route path="/employee/list-users" component={ListUsers} />
             <Route path="/employee/update/:id" component={EditUser} />
             <Route path="/employee/list-performance" component={ListPerformanceReviews} />
+            <Route path="/employee/add-performance" component={AddPerfomanceReviews} />
+            <Route path="/employee/update-performance/:id" component={EditPerformance} />
             <Route path="/employee/create/relation" component={RelationUserPage} />
           </Switch>
         </div>
