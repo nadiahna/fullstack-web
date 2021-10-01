@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import UserService from "../services/userService";
+import logo from "../assets/Paypay_logo.png";
 
 const Home = () => {
   const [content, setContent] = useState("");
@@ -24,7 +25,8 @@ const Home = () => {
   return (
     <div className="container">
       <header className="jumbotron">
-        <h3>{content}</h3>
+        {/* <h3>{content}</h3> */}
+        <img alt="" src={logo} />
       </header>
     </div>
   );

@@ -48,11 +48,11 @@ export default function App() {
 
             {showAdminBoard && (
               <>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to={"/admin"} className="nav-link">
                   Admin Board
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link to={"/employee/list-users"} className="nav-link">
                   List Users
