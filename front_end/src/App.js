@@ -73,11 +73,11 @@ export default function App() {
                     List Performance
                   </Link>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to={"/user"} className="nav-link">
                     User
                   </Link>
-                </li>
+                </li> */}
               </>
             )}
           </div>

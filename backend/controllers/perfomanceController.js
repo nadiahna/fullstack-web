@@ -67,6 +67,25 @@ exports.findAllByIdUser = (req, res) => {
     });
 };
 
+//find all reviews by id_reviewer_recipient
+exports.findAllByIdRecipient = (req, res) => {
+    const id_reviewer_recipient = req.params.id;
+
+    Performance.findAll({
+            where: {
+                id_reviewer_recipient : id_reviewer_recipient
+            }
+    })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error while get all performance reviewed by you."
+        });
+    });
+};
+
     //find one by id
 exports.findOne = (req, res) => {
     const id = req.params.id;
@@ -86,7 +105,7 @@ exports.findOne = (req, res) => {
     exports.update = (req, res) => {
         const id = req.params.id;
 
-        Perfomance.update(req.body, {
+        Performance.update(req.body, {
             where: {id: id}
         })
         .then(num => {

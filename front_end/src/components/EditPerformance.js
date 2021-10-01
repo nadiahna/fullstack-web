@@ -17,7 +17,7 @@ export default function EditPerformance() {
     const [reviewerRecipient, setReviewerRecipient] = useState();
     const [reviewer, setReviewer] = useState();
     const [isAdmin, setIsAdmin] = useState(false);
-    const [currentUser, setCurrentUser] = useState(undefined);
+    // const [currentUser, setCurrentUser] = useState(undefined);
     const [selectReviewer, setSelectReviewer] = useState();
     const [selectRecipient, setSelectRecipient] = useState();
     
@@ -25,7 +25,7 @@ export default function EditPerformance() {
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
-        setCurrentUser(user);
+    //   setCurrentUser(user);
       setIsAdmin(user.roles.includes("ROLE_ADMIN"));
     }
   }, []);
@@ -72,7 +72,7 @@ export default function EditPerformance() {
         const score = e.target.value;
         setScore(score);
       };
-      console.log(reviewer,score, 'score')
+    //   console.log(reviewer,score, 'score')
 
       const onChangeReviewer = (e) => {
         const reviewer = e.target.value;
@@ -90,7 +90,7 @@ export default function EditPerformance() {
         setSelectRecipient(selectName);
       };
 
-      console.log(employee, 'emp');
+    //   console.log(employee, 'emp');
 
     return(
         <>
@@ -103,29 +103,27 @@ export default function EditPerformance() {
                                 <div>
                                     <h5>Select user for reviewer</h5>         
                                     <select class="form-select" aria-label="Default select example" onChange={onChangeReviewer}>
-                                        <option selected value={reviewer}>Open this select menu</option>
                                         {employee.map((employee, id) => (
-                                            <option key={id} value={employee.id}>{employee.name}</option>
+                                            <option key={id} value={reviewer} selected>{employee.name}</option>
                                         ))}
                                     </select>
                                 </div>
                                 <div>
                                     <h5>Select user to receipt a review</h5>
                                     <select class="form-select" aria-label="Default select example" onChange={onChangeReviewerRecipient}>
-                                        <option selected value={reviewerRecipient}>Open this select menu</option>
                                         {employee.map((employee, id) => (
-                                            <option key={id} value={employee.id}>{employee.name}</option>
+                                            <option key={id} value={reviewerRecipient} selected>{employee.name}</option>
                                         ))}
                                     </select>
                                 </div>
                             </> : 
-                            <div>{reviewerRecipient}</div>
+                            <div>{selectRecipient}</div>
                             }
                             
                             <div className="form-group">
                                 <label htmlFor="score">Score</label>
                                 <Input
-                                type="text"
+                                type="number"
                                 className="form-control"
                                 name="score"
                                 value={score}

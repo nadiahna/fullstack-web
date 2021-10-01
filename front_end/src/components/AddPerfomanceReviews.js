@@ -12,10 +12,8 @@ export default function AddPerfomanceReviews() {
     const history = useHistory();
     const [employee, setEmployee] = useState([]);
     const [score, setScore] = useState('');
-    const [reviewer, setReviewer] = useState();
     const [reviewerRecipient, setReviewerRecipient] = useState();
     const [selected, setSelected] = useState();
-    const [currentUser, setCurrentUser] = useState(undefined);
     const user = AuthService.getCurrentUser();
 
     useEffect(() => {
@@ -39,7 +37,7 @@ export default function AddPerfomanceReviews() {
         setReviewerRecipient(reviewerRecipient);
         setSelected(selectName);
       };
-      console.log(selected, 'sel');
+    //   console.log(selected, 'sel');
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -79,7 +77,7 @@ export default function AddPerfomanceReviews() {
                             <div className="form-group">
                                 <label htmlFor="score">Score</label>
                                 <Input
-                                type="text"
+                                type="number"
                                 className="form-control"
                                 name="score"
                                 value={score}

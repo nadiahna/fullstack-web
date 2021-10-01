@@ -23,6 +23,9 @@ module.exports = function(app) {
     // get performance by id_reviewer
     app.get("/api/performanceBy/:id", [authJwt.verifyToken], performance.findAllByIdUser);
 
+    // get reviews by id_reviewer_recipient
+    app.get("/api/performance/result/:id", [authJwt.verifyToken], performance.findAllByIdRecipient);
+
     //update performance by id
     app.post("/api/performance/update/:id", [authJwt.verifyToken], performance.update);
 
