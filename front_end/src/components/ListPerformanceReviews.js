@@ -26,8 +26,8 @@ export default function ListPerformanceReviews() {
   console.log(currentUser, 'user');
 
     useEffect(() => {
-        getPerformance();
-        getPerformanceById();
+        isAdmin && getPerformance();
+        !isAdmin && getPerformanceById();
     }, []);
  
     const getPerformance = async () => {

@@ -18,6 +18,8 @@ export default function EditPerformance() {
     const [reviewer, setReviewer] = useState();
     const [isAdmin, setIsAdmin] = useState(false);
     const [currentUser, setCurrentUser] = useState(undefined);
+    const [selectReviewer, setSelectReviewer] = useState();
+    const [selectRecipient, setSelectRecipient] = useState();
     
 
   useEffect(() => {
@@ -51,6 +53,8 @@ export default function EditPerformance() {
         await axios.post(API_URL+"performance/update/"+id, {
           id_reviewer: reviewer,
           id_reviewer_recipient: reviewerRecipient,
+          reviewer: selectReviewer,
+          reviewer_recipient: selectRecipient,
           score: score,
         }, {headers: authHeader()})
         .then(function (response) {
@@ -70,12 +74,18 @@ export default function EditPerformance() {
 
       const onChangeReviewer = (e) => {
         const reviewer = e.target.value;
+        const selectId = employee.find(e => e.id === parseInt(reviewer));
+        const selectName = selectId.name;
         setReviewer(reviewer);
+        setSelectReviewer(selectName);
       };
 
       const onChangeReviewerRecipient = (e) => {
         const reviewerRecipient = e.target.value;
+        const selectId = employee.find(e => e.id === parseInt(reviewerRecipient));
+        const selectName = selectId.name;
         setReviewerRecipient(reviewerRecipient);
+        setSelectRecipient(selectName);
       };
 
       console.log(employee, 'emp');
@@ -89,23 +99,23 @@ export default function EditPerformance() {
                         <div>
                             {isAdmin ? <>
                                 <div>
-                                <h5>Select user for reviewer</h5>         
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected value={reviewer} onChange={onChangeReviewer}>Open this select menu</option>
-                                    {employee.map((employee, id) => (
-                                        <option key={id}>{employee.name}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div>
-                                <h5>Select user to receipt a review</h5>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected value={reviewerRecipient} onChange={onChangeReviewerRecipient}>Open this select menu</option>
-                                    {employee.map((employee, id) => (
-                                        <option key={id}>{employee.name}</option>
-                                    ))}
-                                </select>
-                            </div>
+                                    <h5>Select user for reviewer</h5>         
+                                    <select class="form-select" aria-label="Default select example" onChange={onChangeReviewer}>
+                                        <option selected value={reviewer}>Open this select menu</option>
+                                        {employee.map((employee, id) => (
+                                            <option key={id} value={employee.id}>{employee.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div>
+                                    <h5>Select user to receipt a review</h5>
+                                    <select class="form-select" aria-label="Default select example" onChange={onChangeReviewerRecipient}>
+                                        <option selected value={reviewerRecipient}>Open this select menu</option>
+                                        {employee.map((employee, id) => (
+                                            <option key={id} value={employee.id}>{employee.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
                             </> : 
                             <div>{reviewerRecipient}</div>
                             }

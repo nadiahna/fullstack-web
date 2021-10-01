@@ -1,15 +1,19 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 import authHeader from "../services/auth-header";
 
 const API_URL = "http://localhost:5000/api/";
 
 
 export default function RelationUserPage() {
+    const history = useHistory();
     const [employee, setEmployee] = useState([]);
-    const [reviewer, setReviewer] = useState(employee);
-    const [reviewerRecipient, setReviewerRecipient] = useState(employee);
+    const [reviewer, setReviewer] = useState();
+    const [reviewerRecipient, setReviewerRecipient] = useState();
+    const [selectReviewer, setSelectReviewer] = useState();
+    const [selectRecipient, setSelectRecipient] = useState();
 
     useEffect(() => {
         getEmployee();
@@ -23,10 +27,10 @@ export default function RelationUserPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post(API_URL+"performance/create",{
-            reviewer: reviewer,
-            reviewer_recipient: reviewerRecipient,
-            id_reviewer: employee.id,
-            id_reviewer_recipient: employee.id
+            id_reviewer: reviewer,
+            id_reviewer_recipient: reviewerRecipient,
+            reviewer: selectReviewer,
+            reviewer_recipient: selectRecipient,
         }, {headers: authHeader()})
         .then(function(response){
             console.log(response);
@@ -34,30 +38,24 @@ export default function RelationUserPage() {
         .catch(function(err){
             console.log(err)
         });
+        history.push("/employee/list-performance");
     }
-    console.log(reviewer, 'reviewr');
-    console.log(reviewerRecipient, 'rr')
 
-    // const onChangeReviewer = useState(() => {
-    //     return () => {
-    //         setReviewer(reviewer);
-    //     }
-        
-    // });
 
-    //   const onChangeReviewerRecipient = useState(() => {
-    //     return () => {
-    //         setReviewerRecipient(reviewerRecipient);
-    //     }
-    //   });
     const onChangeReviewer = (e) => {
-        const [reviewer] = e.target.value;
+        const reviewer = e.target.value;
+        const selectId = employee.find(e => e.id === parseInt(reviewer));
+        const selectName = selectId.name;
         setReviewer(reviewer);
+        setSelectReviewer(selectName);
       };
 
       const onChangeReviewerRecipient = (e) => {
         const reviewerRecipient = e.target.value;
+        const selectId = employee.find(e => e.id === parseInt(reviewerRecipient));
+        const selectName = selectId.name;
         setReviewerRecipient(reviewerRecipient);
+        setSelectRecipient(selectName);
       };
 
     return(
@@ -67,19 +65,19 @@ export default function RelationUserPage() {
                 <Form onSubmit={handleSubmit}>
                     <div>
                         <h5>Select user for reviewer</h5>         
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected value={reviewer} onChange={onChangeReviewer}>Open this select menu</option>
+                        <select class="form-select" aria-label="Default select example" onChange={onChangeReviewer}>
+                            <option selected value={reviewer}>Open this select menu</option>
                             {employee.map((employee, id) => (
-                                <option key={id}>{employee.name}</option>
+                                <option key={id} value={employee.id}>{employee.name}</option>
                             ))}
                         </select>
                     </div>
                     <div>
                         <h5>Select user to receipt a review</h5>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected value={reviewerRecipient} onChange={onChangeReviewerRecipient}>Open this select menu</option>
+                        <select class="form-select" aria-label="Default select example" onChange={onChangeReviewerRecipient}>
+                            <option selected value={reviewerRecipient}>Open this select menu</option>
                             {employee.map((employee, id) => (
-                                <option key={id}>{employee.name}</option>
+                                <option key={id} value={employee.id}>{employee.name}</option>
                             ))}
                         </select>
                     </div>

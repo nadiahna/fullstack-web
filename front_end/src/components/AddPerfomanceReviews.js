@@ -14,6 +14,7 @@ export default function AddPerfomanceReviews() {
     const [score, setScore] = useState('');
     const [reviewer, setReviewer] = useState();
     const [reviewerRecipient, setReviewerRecipient] = useState();
+    const [selected, setSelected] = useState();
     const [currentUser, setCurrentUser] = useState(undefined);
     const user = AuthService.getCurrentUser();
 
@@ -33,14 +34,20 @@ export default function AddPerfomanceReviews() {
 
       const onChangeReviewerRecipient = (e) => {
         const reviewerRecipient = e.target.value;
+        const selectId = employee.find(e => e.id === parseInt(reviewerRecipient));
+        const selectName = selectId.name;
         setReviewerRecipient(reviewerRecipient);
+        setSelected(selectName);
       };
+      console.log(selected, 'sel');
 
     const handleSubmit = async(e) => {
         e.preventDefault();
         await axios.post(API_URL+"performance/create", {
             id_reviewer: user.id,
             id_reviewer_recipient: reviewerRecipient,
+            reviewer: user.name,
+            reviewer_recipient: selected,
             score: score,
           }, {headers: authHeader()})
           .then(function (response) {
@@ -50,8 +57,8 @@ export default function AddPerfomanceReviews() {
             console.log(error);
           });
           history.push("/employee/list-performance");
-
     }
+
 
     return(
         <>
@@ -62,10 +69,10 @@ export default function AddPerfomanceReviews() {
                         <div>
                             <div>
                                 <h5>Select user to receipt a review</h5>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected value={reviewerRecipient} onChange={onChangeReviewerRecipient}>Open this select menu</option>
+                                <select class="form-select" aria-label="Default select example" onChange={onChangeReviewerRecipient}>
+                                    <option selected>Open this select menu</option>
                                     {employee.map((employee, id) => (
-                                        <option key={id}>{employee.name}</option>
+                                        <option key={id} value={employee.id}>{employee.name}</option>
                                     ))}
                                 </select>
                             </div>
