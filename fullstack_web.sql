@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Sep 2021 pada 18.56
+-- Waktu pembuatan: 01 Okt 2021 pada 08.40
 -- Versi server: 10.4.18-MariaDB
 -- Versi PHP: 8.0.3
 
@@ -45,7 +45,11 @@ CREATE TABLE `performance_reviews` (
 INSERT INTO `performance_reviews` (`id`, `id_reviewer`, `id_reviewer_recipient`, `reviewer`, `reviewer_recipient`, `score`, `createdAt`, `updatedAt`) VALUES
 (1, 10, 5, 'dona', 'hilal', NULL, '2021-09-30 12:58:54', '2021-09-30 12:58:54'),
 (2, 4, 6, 'nadiah', 'otniel', NULL, '2021-09-30 12:58:54', '2021-09-30 12:58:54'),
-(3, 5, 4, 'hilal', 'nadiah', NULL, '2021-09-30 13:43:57', '2021-09-30 13:43:57');
+(3, 5, 4, 'hilal', 'nadiah', NULL, '2021-09-30 13:43:57', '2021-09-30 13:43:57'),
+(4, 3, NULL, NULL, NULL, '5', '2021-09-30 17:26:45', '2021-09-30 17:26:45'),
+(5, 3, 4, 'super admin', 'nadiah', '3', '2021-10-01 03:34:09', '2021-10-01 03:34:09'),
+(6, 5, 6, 'hilal', 'otniel', NULL, '2021-10-01 03:41:59', '2021-10-01 03:41:59'),
+(7, 1, 5, 'nadiah admin', 'hilal', NULL, '2021-10-01 03:42:57', '2021-10-01 03:42:57');
 
 -- --------------------------------------------------------
 
@@ -162,7 +166,7 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT untuk tabel `performance_reviews`
 --
 ALTER TABLE `performance_reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

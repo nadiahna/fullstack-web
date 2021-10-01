@@ -43,8 +43,10 @@ export default function EditPerformance() {
 
     const getPerformanceById = async () => {
         const response = await axios.get(API_URL+"performance/"+id, {headers: authHeader()});
-        setReviewer(response.data.reviewer);
-        setReviewerRecipient(response.data.reviewer_recipient);
+        setReviewer(response.data.id_reviewer);
+        setReviewerRecipient(response.data.id_reviewer_recipient);
+        setSelectReviewer(response.data.reviewer);
+        setSelectRecipient(response.data.reviewer_recipient);
         setScore(response.data.score);
     }
 
